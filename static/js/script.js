@@ -11,7 +11,13 @@ document.getElementById('searchBtn').addEventListener('click', function() {
         .then(response => response.json())
         .then(data => {
             const statsSection = document.getElementById('stats');
-            statsSection.innerHTML = JSON.stringify(data, null, 2);
+            statsSection.innerHTML = '';
+            Object.keys(data).forEach(key => {
+                const statDiv = document.createElement('div');
+                statDiv.className = 'stat';
+                statDiv.innerHTML = `<strong>${key}:</strong> ${JSON.stringify(data[key], null, 2)}`;
+                statsSection.appendChild(statDiv);
+            });
         })
         .catch(error => console.error('Error:', error));
     } else {
